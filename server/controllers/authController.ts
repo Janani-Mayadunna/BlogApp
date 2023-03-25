@@ -10,92 +10,97 @@ import {
   generateRefreshToken,
 } from "../config/generateToken";
 
-export const register = async (req: Request, res: Response) => {
+export const registerUser = async (req: Request, res: Response) => {
+  const salt = await bcrypt.genSalt(10);
+
+  const hashedPswrd = await bcrypt.hash(req.body.password, salt);
+
+  req.body.password = hashedPswrd;
+
+  const newUser = new userModel(req.body);
+  const { account } = req.body;
+
   try {
-    const { name, account, password } = req.body;
+    // checks if the provided username already exists in the database by calling UserModel.findOne method
+    const oldUser = await userModel.findOne({ account });
 
-    const user = await userModel.findOne({ account });
-    if (user)
-      return res
-        .status(400)
-        .json({ msg: "Email or Phone number already exists." });
+    // if old user exists
+    if (oldUser) {
+      return res.status(400).json({ message: "Username already used" });
+    }
+    // If the username is available, it saves the new user to the database by calling the mongoose save method on newUser.
+    const user = await newUser.save();
 
-    const passwordHash = await bcrypt.hash(password, 12);
+    // generates a JSON web token with the provided JWT_KEY, and sets the token to expire in one hour
+    const token = jwt.sign(
+      { account: user.account, id: user._id },
+      process.env.JWT_KEY!,
+      { expiresIn: "1h" }
+    );
 
-    const newUser = { name, account, password: passwordHash };
-
-    const active_token = generateActiveToken({ newUser });
-
-    res.json({ status: "OK", msg: "Registered!", data: newUser, active_token });
-
-    //    const url = `${CLIENT_URL}/active/${active_token}`;
-
-    //    if (validateEmail(account)) {
-    //      sendMail(account, url, "Verify your email address");
-    //      return res.json({ msg: "Success! Please check your email." });
-    //    } else if (validPhone(account)) {
-    //      sendSms(account, url, "Verify your phone number");
-    //      return res.json({ msg: "Success! Please check phone." });
-    //    }
-  } catch (err: any) {
-    return res.status(500).json({ msg: err.message });
+    //store user and token in local storage and redux store
+    // user and token are sent in the response as a JSON object with a status code of 200.
+    res.status(200).json({ user, token }); //200 success
+  } catch (error: any) {
+    res.status(500).json({ message: error.message }); //500 server error
   }
 };
 
-// export const login = async (req: Request, res: Response) => {
+// USer login
+
+export const loginUser = async (req: Request, res: Response) => {
+  //destructure username and password from the body  of the request
+  const { account, password } = req.body;
+
+  //find a user with this username that comes along with the http request in userModel
+  //if it exists in the DB return it to cont user
+  try {
+    const user = await userModel.findOne({ account: account });
+
+    //if this user exists
+    if (user) {
+      //hashing the normal password
+      const passwordStatus = await bcrypt.compare(password, user.password);
+
+      //if password user entered and the encrypted paswrd are not valid
+      if (!passwordStatus) {
+        res.status(400).json("Wrong Password");
+      } else {
+        // f the password is correct, a JSON Web Token (JWT) is generated
+        const token = jwt.sign(
+          { username: user.account, id: user._id },
+          process.env.JWT_KEY!,
+          { expiresIn: "1h" }
+        );
+        // token is then returned in the response body along with the user data
+        res.status(200).json({ user, token });
+      }
+      // when no matchign user found
+    } else {
+      res.status(404).json("Invalid User : User doesn't exist");
+    }
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// export const register = async (req: Request, res: Response) => {
 //   try {
-//     const { account, password } = req.body;
+//     const { name, account, password } = req.body;
 
 //     const user = await userModel.findOne({ account });
-//     if (!user)
-//       return res.status(400).json({ msg: "This account does not exits." });
+//     if (user)
+//       return res
+//         .status(400)
+//         .json({ msg: "Email or Phone number already exists." });
 
-//     // if user exists
-//     loginUser(user, password, res);
-//   } catch (err: any) {
-//     return res.status(500).json({ msg: err.message });
-//   }
-// };
+//     const passwordHash = await bcrypt.hash(password, 12);
 
-// const loginUser = async (user: IUser, password: string, res: Response) => {
-//   const isMatch = await bcrypt.compare(password, user.password);
+//     const newUser = { name, account, password: passwordHash };
 
-//   if (!isMatch) {
-//     let msgError =
-//       user.type === "register"
-//         ? "Password is incorrect."
-//         : `Password is incorrect. This account login with ${user.type}`;
+//     const active_token = generateActiveToken({ newUser });
 
-//     return res.status(400).json({ msg: msgError });
-//   }
-
-//   const access_token = generateAccessToken({ id: user._id });
-//   // const refresh_token = generateRefreshToken({ id: user._id });
-
-//   res.json({
-//     msg: "Login Success!",
-//     access_token,
-//     user: { ...user._doc, password: "" },
-//   });
-// };
-
-// export const logout = async (req: Request, res: Response) => {
-//   // if (!req.user) return res.status(400).json({ msg: "Invalid Authentication." });
-
-//   try {
-//     res.clearCookie("refreshtoken", { path: `/auth/refresh_token` });
-
-//     return res.json({ msg: "Logged out!" });
-//   } catch (err: any) {
-//     return res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// export const refreshToken = async (req: Request, res: Response) => {
-//   try {
-//     const rf_token = req.cookies.refreshtoken;
-//     console.log(req.cookies);
-//     res.json({ msg: "Sucess!" });
+//     res.json({ status: "OK", msg: "Registered!", data: newUser, active_token });
 //   } catch (err: any) {
 //     return res.status(500).json({ msg: err.message });
 //   }
