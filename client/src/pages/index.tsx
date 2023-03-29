@@ -7,7 +7,6 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import Grid from "@mui/material/Grid";
-import BlogCard from "../components/home/BlogCard";
 import Container from "@mui/material/Container";
 import blogCats from "./data.json";
 import cover from "../styles/cover.jpg";
@@ -34,29 +33,6 @@ const Home = () => {
       <Box>
         {/* <img className="imgCover" src={blogCover} alt="card_image" /> */}
         <CarouselF />
-      </Box>
-
-      <Box>
-        {blogCats.map((blogCat) => (
-          // Wrap everything in a fragment
-          <>
-            <Typography
-              variant="h4"
-              component="h2"
-              marginTop={5}
-              marginBottom={5}
-            >
-              Top {blogCat.name}
-            </Typography>
-            <Grid container spacing={5}>
-              {blogCat.blogs.map((blog, index) => (
-                <Grid item xs={4}>
-                  <BlogCard blog={blog} key={index} />
-                </Grid>
-              ))}
-            </Grid>
-          </>
-        ))}
       </Box>
 
       <Box position={"absolute"} right={100}>

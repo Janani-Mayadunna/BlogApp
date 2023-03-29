@@ -3,12 +3,12 @@ import Users from "../models/userModel";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import userModel from "../models/userModel";
-import { IUser } from "../config/interfaces";
+import { IUser } from "../../config/interfaces";
 import {
   generateActiveToken,
   generateAccessToken,
   generateRefreshToken,
-} from "../config/generateToken";
+} from "../../config/generateToken";
 
 export const registerUser = async (req: Request, res: Response) => {
   const salt = await bcrypt.genSalt(10);
