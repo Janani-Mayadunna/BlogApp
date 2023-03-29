@@ -37,7 +37,8 @@ const headerTheme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         colorPrimary: {
-          backgroundColor: "#159895",
+          // backgroundColor: "#159895",
+          backgroundColor: "#907ad6",
         },
       },
     },
@@ -51,11 +52,11 @@ const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  // marginRight: theme.spacing(2),
-  marginLeft: 300,
-  width: "100%",
+  marginRight: theme.spacing(2),
+  // marginLeft: 300,
+  width: "auto",
   [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
+    marginLeft: theme.spacing(10),
     width: "auto",
   },
 }));
@@ -166,7 +167,7 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, marginBottom: 5 }}>
       <ThemeProvider theme={headerTheme}>
         <AppBar position="static">
           <Toolbar>
@@ -177,55 +178,90 @@ export default function PrimarySearchAppBar() {
               aria-label="open drawer"
               sx={{ mr: 2 }}
             >
-              {/* <MenuIcon /> */}
+              <MenuIcon />
             </IconButton>
             <Typography
               variant="h6"
               noWrap
               component="div"
-              sx={{ display: { xs: "none", sm: "block" } }}
+              sx={{
+                display: { xs: "none", sm: "block" },
+                "& a": {
+                  fontSize: "1.7rem",
+                  textDecoration: "none",
+                  color: "inherit",
+                  "&:hover": {
+                    textDecoration: "none",
+                    color: "inherit",
+                  },
+                },
+              }}
             >
-              Blog Space
+              <Link to="/">Blog Space</Link>
             </Typography>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
+            <Box>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </Search>
+            </Box>
             <Box sx={{ flexGrow: 1 }} />
-            <ul>
-              {bfLoginLinks.map((link, index) => (
-                <Typography
-                  variant="h6"
-                  noWrap
-                  component="div"
-                  sx={{ display: { xs: "none", sm: "block" } }}
-                >
-                  <li key={index} className="nav-item">
-                    <Link className="nav-link" to={link.path}>
-                      {link.label}
-                    </Link>
-                  </li>
-                </Typography>
-              ))}
-            </ul>
 
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
+            <MenuItem>
+              <ul>
+                {bfLoginLinks.map((link, index) => (
+                  <Typography
+                    variant="h6"
+                    noWrap
+                    component="div"
+                    sx={{
+                      display: { xs: "none", sm: "block" },
+                      "& a": {
+                        fontSize: "1.3rem",
+                        textDecoration: "none",
+
+                        color: "#2C2A4A",
+                        fontWeight: "bold",
+                        "&:hover": {
+                          textDecoration: "none",
+                          color: "inherit",
+                        },
+                      },
+                    }}
+                  >
+                    <li key={index} className="nav-item">
+                      <Link className="nav-link" to={link.path}>
+                        {link.label}
+                      </Link>
+                    </li>
+                  </Typography>
+                ))}
+              </ul>
+            </MenuItem>
+
+            <Box
+              sx={{
+                display: { xs: "none", md: "flex" },
+              }}
+            >
+              <MenuItem>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </MenuItem>
             </Box>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
               <IconButton

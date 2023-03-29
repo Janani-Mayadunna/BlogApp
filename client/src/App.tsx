@@ -9,9 +9,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <PrimarySearchAppBar />
         <Container sx={{ marginY: 5, marginTop: 0 }}>
-          <PrimarySearchAppBar />
-
           <Routes>
             <Route path="/" Component={PageRender} />
             <Route path="/:page" Component={PageRender} />

@@ -9,9 +9,9 @@ const userSchema = new mongoose.Schema(
       trim: true,
       maxLength: [30, "Your name cannot exceed 30 characters"],
     },
-    account: {
+    email: {
       type: String,
-      required: [true, "Please enter your account email or phone number"],
+      required: [true, "Please enter your email"],
       trim: true,
       unique: true,
     },

@@ -5,7 +5,7 @@ export const validRegister = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { name, account, password } = req.body;
+  const { name, email, password } = req.body;
 
   if (!name) {
     return res.status(400).json({ msg: "Please add your name!" });
@@ -15,14 +15,10 @@ export const validRegister = async (
       .json({ msg: "Your name is long than 20 characters" });
   }
 
-  if (!account) {
-    return res
-      .status(400)
-      .json({ msg: "Please add your email or phone number." });
-  } else if (!validPhone(account) && !validateEmail(account)) {
-    return res
-      .status(400)
-      .json({ msg: "Email or phone number format is incorrect." });
+  if (!email) {
+    return res.status(400).json({ msg: "Please add your email." });
+  } else if (!validateEmail(email)) {
+    return res.status(400).json({ msg: "Email format is incorrect." });
   }
 
   if (password.length < 6) {

@@ -18,11 +18,11 @@ export const registerUser = async (req: Request, res: Response) => {
   req.body.password = hashedPswrd;
 
   const newUser = new userModel(req.body);
-  const { account } = req.body;
+  const { email } = req.body;
 
   try {
     // checks if the provided username already exists in the database by calling UserModel.findOne method
-    const oldUser = await userModel.findOne({ account });
+    const oldUser = await userModel.findOne({ email });
 
     // if old user exists
     if (oldUser) {
@@ -33,7 +33,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
     // generates a JSON web token with the provided JWT_KEY, and sets the token to expire in one hour
     const token = jwt.sign(
-      { account: user.account, id: user._id },
+      { email: user.email, id: user._id },
       process.env.JWT_KEY!,
       { expiresIn: "1h" }
     );
@@ -50,12 +50,12 @@ export const registerUser = async (req: Request, res: Response) => {
 
 export const loginUser = async (req: Request, res: Response) => {
   //destructure username and password from the body  of the request
-  const { account, password } = req.body;
+  const { email, password } = req.body;
 
   //find a user with this username that comes along with the http request in userModel
   //if it exists in the DB return it to cont user
   try {
-    const user = await userModel.findOne({ account: account });
+    const user = await userModel.findOne({ email: email });
 
     //if this user exists
     if (user) {
@@ -68,7 +68,7 @@ export const loginUser = async (req: Request, res: Response) => {
       } else {
         // f the password is correct, a JSON Web Token (JWT) is generated
         const token = jwt.sign(
-          { username: user.account, id: user._id },
+          { username: user.email, id: user._id },
           process.env.JWT_KEY!,
           { expiresIn: "1h" }
         );
@@ -86,9 +86,9 @@ export const loginUser = async (req: Request, res: Response) => {
 
 // export const register = async (req: Request, res: Response) => {
 //   try {
-//     const { name, account, password } = req.body;
+//     const { name, email, password } = req.body;
 
-//     const user = await userModel.findOne({ account });
+//     const user = await userModel.findOne({ email });
 //     if (user)
 //       return res
 //         .status(400)
@@ -96,7 +96,7 @@ export const loginUser = async (req: Request, res: Response) => {
 
 //     const passwordHash = await bcrypt.hash(password, 12);
 
-//     const newUser = { name, account, password: passwordHash };
+//     const newUser = { name, email, password: passwordHash };
 
 //     const active_token = generateActiveToken({ newUser });
 
