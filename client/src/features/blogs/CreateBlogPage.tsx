@@ -10,6 +10,7 @@ import { purple } from "@mui/material/colors";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { useAppDispatch } from "../../store/store";
 import { createBlog } from "./blogSlice";
+import { Link } from "react-router-dom";
 
 export default function CreateBlogPage() {
   const dispatch = useAppDispatch();
@@ -124,7 +125,7 @@ export default function CreateBlogPage() {
 
       <Box display="flex" justifyContent="center" alignItems="center">
         <ColorButton variant="contained" onClick={handleSubmit}>
-          Upload Blog
+          <Link to="/">Upload Blog</Link>
           <input hidden accept="image/*" multiple type="file" />
         </ColorButton>
         <Snackbar

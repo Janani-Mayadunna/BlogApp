@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { User } from "../../interfaces/User";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 interface AccountState {
   loading: boolean;
@@ -40,10 +41,13 @@ export const loginUser = createAsyncThunk<User, string | Object>(
         "http://localhost:8080/api/auth/login",
         data
       );
+      <Link to={"http://localhost:8080/"}></Link>;
+
       const { token } = response.data;
       localStorage.setItem("jwt-blogapp", JSON.stringify(token));
       toast.success("Successfully Logged In!");
       thunkAPI.dispatch(setLoggedIn(true));
+
       return token;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error });

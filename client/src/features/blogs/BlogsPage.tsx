@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import { textAlign } from "@mui/system";
 import { Link } from "react-router-dom";
 import CarouselF from "../../components/global/Carousel";
 import FloatingActionButtons from "../../components/global/FloatingActionButtons";
@@ -20,7 +21,7 @@ export default function BlogPage() {
         {blogs &&
           blogs.map((blog) => (
             <Grid item key={blog._id} xs={4}>
-              <Link to={`/blog/${blog._id}`}>
+              <Link to={`/blog/${blog._id}`} style={{ textDecoration: "none" }}>
                 <Paper elevation={5}>
                   {/* Box has paddingX and paddingY */}
                   {/* Box is a container for components just like a div */}

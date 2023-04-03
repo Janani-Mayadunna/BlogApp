@@ -8,7 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 export default function FloatingActionButtons() {
   return (
     <Box sx={{ "& > :not(style)": { m: 1 } }}>
-      <Link to="/create_blog">
+      <Link to="/createblog">
         <Fab color="primary" aria-label="add">
           <Tooltip title="Create Blog" placement="left-start">
             <AddIcon />

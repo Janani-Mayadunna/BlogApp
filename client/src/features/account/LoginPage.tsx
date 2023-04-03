@@ -8,6 +8,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../store/store";
 import { loginUser } from "./accountSlice";
+import "./LoginPage.css";
 
 export default function LoginPage() {
   const [user, setUser] = useState({
@@ -20,10 +21,11 @@ export default function LoginPage() {
   function handleSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     dispatch(loginUser(user));
+    // <Link to={"/"}>Login</Link>;
   }
 
   return (
-    <Container>
+    <Container className="loginContainer">
       <form
       //   onSubmit={handleSubmit}
       >

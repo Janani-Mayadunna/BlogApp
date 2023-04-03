@@ -60,11 +60,21 @@ export default function EditBlogPage() {
   /* STYLINGS */
 
   //Button stylings
-  const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  const ColorButtonUpdate = styled(Button)<ButtonProps>(({ theme }) => ({
     color: theme.palette.getContrastText(purple[500]),
     height: 40,
     width: 150,
-    backgroundColor: "#2C2A4A",
+    backgroundColor: "#280B7C",
+    "&:hover": {
+      backgroundColor: purple[700],
+    },
+  }));
+
+  const ColorButtonDelete = styled(Button)<ButtonProps>(({ theme }) => ({
+    color: theme.palette.getContrastText(purple[500]),
+    height: 40,
+    width: 150,
+    backgroundColor: "#CA3A1B",
     "&:hover": {
       backgroundColor: purple[700],
     },
@@ -142,47 +152,53 @@ export default function EditBlogPage() {
         </Grid>
       </Box>
 
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <ColorButton variant="contained" onClick={handleSubmit}>
-          Update Blog
-          <input hidden accept="image/*" multiple type="file" />
-        </ColorButton>
-        <Snackbar
-          open={open}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          autoHideDuration={6000}
-          onClose={handleClose}
-        >
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Blog Updated Successfully!
-          </Alert>
-        </Snackbar>
-      </Box>
+      <Grid container spacing={4}>
+        <Grid item xs={6}>
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <ColorButtonUpdate variant="contained" onClick={handleSubmit}>
+              Update Blog
+              <input hidden accept="image/*" multiple type="file" />
+            </ColorButtonUpdate>
+            <Snackbar
+              open={open}
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+              autoHideDuration={6000}
+              onClose={handleClose}
+            >
+              <Alert
+                onClose={handleClose}
+                severity="success"
+                sx={{ width: "100%" }}
+              >
+                Blog Updated Successfully!
+              </Alert>
+            </Snackbar>
+          </Box>
+        </Grid>
 
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <ColorButton variant="contained" onClick={handleDelete}>
-          Delete Blog
-          <input hidden accept="image/*" multiple type="file" />
-        </ColorButton>
-        <Snackbar
-          open={open}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          autoHideDuration={6000}
-          onClose={handleClose}
-        >
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Blog Updated Successfully!
-          </Alert>
-        </Snackbar>
-      </Box>
+        <Grid item xs={6}>
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <ColorButtonDelete variant="contained" onClick={handleDelete}>
+              Delete Blog
+              <input hidden accept="image/*" multiple type="file" />
+            </ColorButtonDelete>
+            <Snackbar
+              open={open}
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+              autoHideDuration={6000}
+              onClose={handleClose}
+            >
+              <Alert
+                onClose={handleClose}
+                severity="success"
+                sx={{ width: "100%" }}
+              >
+                Blog Updated Successfully!
+              </Alert>
+            </Snackbar>
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

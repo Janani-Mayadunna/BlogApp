@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import jwt, { Jwt, JwtPayload } from "jsonwebtoken";
 import { generateJwt } from "../../middleware/jwtMethods";
 
+//Sign up a new user
 export const signUp = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
@@ -25,6 +26,8 @@ export const signUp = async (req: Request, res: Response) => {
   }
 };
 
+//Login a user
+
 export const loginUser = async (req: Request, res: Response) => {
   //check if user exists
   const { email, password } = req.body;
@@ -44,6 +47,8 @@ export const loginUser = async (req: Request, res: Response) => {
   const token = await generateJwt(user._id, user.email);
   return res.status(200).json({ token });
 };
+
+//Get current user
 
 export const getCurrentUser = async (req: Request, res: Response) => {
   const token = req.header("Authorization");

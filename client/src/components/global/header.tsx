@@ -131,7 +131,9 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>
-        <Link to="#">Log Out</Link>
+        <Link style={{ textDecoration: "none" }} to="#">
+          Log Out
+        </Link>
       </MenuItem>
     </Menu>
   );
@@ -168,12 +170,16 @@ export default function PrimarySearchAppBar() {
 
       <MenuItem>
         <Typography>
-          <Link to="#">Create Blog</Link>
+          <Link style={{ textDecoration: "none" }} to="#">
+            Create Blog
+          </Link>
         </Typography>
       </MenuItem>
       <MenuItem>
         <Typography>
-          <Link to="#">Log Out</Link>
+          <Link style={{ textDecoration: "none" }} to="#">
+            Log Out
+          </Link>
         </Typography>
       </MenuItem>
     </Menu>
@@ -214,7 +220,9 @@ export default function PrimarySearchAppBar() {
                 },
               }}
             >
-              <Link to="/">Blog Space</Link>
+              <Link style={{ textDecoration: "none" }} to="/">
+                Blog Space
+              </Link>
             </Typography>
             <Box>
               <Search>
@@ -231,12 +239,18 @@ export default function PrimarySearchAppBar() {
 
             <MenuItem>
               {isLoggedIn ? (
-                <Link to={"/login"} onClick={() => dispatch(logOutUser())}>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to={"/login"}
+                  onClick={() => dispatch(logOutUser())}
+                >
                   Log out
                   {/* <Button onClick={() => dispatch(logOutUser())}></Button> */}
                 </Link>
               ) : (
-                <Link to={"/login"}>Login</Link>
+                <Link style={{ textDecoration: "none" }} to={"/login"}>
+                  Login
+                </Link>
               )}
               {/* <ul>
                 {bfLoginLinks.map((link, index) => (
