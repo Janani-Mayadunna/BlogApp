@@ -103,6 +103,9 @@ export const blogSlice = createSlice({
     setBlogs: (state, action: PayloadAction<Blog[]>) => {
       state.blogs = action.payload;
     },
+    filterBlog: (state, action) => {
+      state.blogs = state.blogs?.filter((blog) => blog._id !== action.payload)!;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getBlogs.pending, (state) => {

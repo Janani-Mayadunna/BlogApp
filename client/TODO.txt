@@ -14,3 +14,5 @@ Rating CRUD
 Appbar in small screen    
 
 Add date created to blog
+
+Input blog

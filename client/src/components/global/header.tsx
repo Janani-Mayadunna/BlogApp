@@ -14,9 +14,14 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { ThemeProvider } from "@emotion/react";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { logOutUser } from "../../features/account/accountSlice";
+import { Button } from "@mui/material";
 
 const bfLoginLinks = [
   { label: "Login", path: "/login" },
+
+  // {isLoggedIn ? ( label: "Login", path: "/login" ) : ( label: "Register", path: "/register" )}
   // { label: "Register", path: "/register" },
 ];
 
@@ -174,6 +179,10 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
+  const { isLoggedIn } = useAppSelector((state) => state.account);
+
+  const dispatch = useAppDispatch();
+
   return (
     <Box sx={{ flexGrow: 1, marginBottom: 5 }}>
       <ThemeProvider theme={headerTheme}>
@@ -221,7 +230,15 @@ export default function PrimarySearchAppBar() {
             <Box sx={{ flexGrow: 1 }} />
 
             <MenuItem>
-              <ul>
+              {isLoggedIn ? (
+                <Link to={"/login"} onClick={() => dispatch(logOutUser())}>
+                  Log out
+                  {/* <Button onClick={() => dispatch(logOutUser())}></Button> */}
+                </Link>
+              ) : (
+                <Link to={"/login"}>Login</Link>
+              )}
+              {/* <ul>
                 {bfLoginLinks.map((link, index) => (
                   <Typography
                     variant="h6"
@@ -243,13 +260,13 @@ export default function PrimarySearchAppBar() {
                     }}
                   >
                     <li key={index} className="nav-item">
-                      <Link className="nav-link" to={link.path}>
+                      <Link key={link.path} className="nav-link" to={link.path}>
                         {link.label}
                       </Link>
                     </li>
                   </Typography>
                 ))}
-              </ul>
+              </ul> */}
             </MenuItem>
 
             <Box
