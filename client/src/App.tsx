@@ -7,6 +7,9 @@ import Container from "@mui/material/Container";
 import BlogsPage from "./features/blogs/BlogsPage";
 import { useAppDispatch } from "./store/store";
 import { getBlogs } from "./features/blogs/blogSlice";
+import SingleBlogPage from "./features/blogs/SingleBlogPage";
+import CreateBlogPage from "./features/blogs/CreateBlogPage";
+import EditBlogPage from "./features/blogs/EditBlogPage";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -30,6 +33,9 @@ function App() {
             <Route path="/:page/:slug" Component={PageRender} /> */}
 
             <Route path="/" element={<BlogsPage />} />
+            <Route path="/blog/:id" element={<SingleBlogPage />} />
+            <Route path="/createblog" element={<CreateBlogPage />} />
+            <Route path="/editblog/:id" element={<EditBlogPage />} />
           </Routes>
         </Container>
       </BrowserRouter>

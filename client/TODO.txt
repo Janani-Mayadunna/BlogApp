@@ -1,0 +1,16 @@
+
+Blog
+    connect blog with User
+    Add a rating    
+
+Auth methods
+    User schema
+    Login
+    AuthRoute    (logged in, admin)
+
+Rating CRUD
+    joining schemas    
+
+Appbar in small screen    
+
+Add date created to blog

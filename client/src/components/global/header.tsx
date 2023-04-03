@@ -160,6 +160,17 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+
+      <MenuItem>
+        <Typography>
+          <Link to="#">Create Blog</Link>
+        </Typography>
+      </MenuItem>
+      <MenuItem>
+        <Typography>
+          <Link to="#">Log Out</Link>
+        </Typography>
+      </MenuItem>
     </Menu>
   );
 

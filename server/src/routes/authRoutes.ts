@@ -1,12 +1,15 @@
-// import express from "express";
-// import { registerUser, loginUser } from "../controllers/authController";
-// import { validRegister } from "../../middleware/valid";
+import { Router } from "express";
+import {
+  getCurrentUser,
+  loginUser,
+  signUp,
+} from "../controllers/authController";
 
-// const router = express.Router();
+const router: Router = Router();
 
-// router.post("/register", validRegister, registerUser);
-// router.post("/login", loginUser);
-// // router.get("/logout", logout);
-// // router.get("/refresh_token", refreshToken);
+//  "api/auth/signup"
+router.get("/currentuser", getCurrentUser);
+router.post("/login", loginUser);
+router.post("/signup", signUp);
 
-// export default router;
+export default router;

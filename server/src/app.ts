@@ -15,8 +15,10 @@ app.use(cors());
 
 //importing routes
 import blogRoute from "./routes/blogRoute";
+import authRoute from "./routes/authRoutes";
 
 //Declare the route paths
 app.use("/api/blogs", blogRoute);
+app.use("/api/auth", authRoute);
 
 export { app };

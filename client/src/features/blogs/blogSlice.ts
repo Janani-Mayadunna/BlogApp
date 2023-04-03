@@ -34,7 +34,52 @@ export const getBlogs = createAsyncThunk<Blog[]>(
   }
 );
 
-export const createBlog = createAsyncThunk<Object, Blog>(
+export const getBlogById = createAsyncThunk<Blog, string>(
+  "blogs/getBlogById",
+  async (id, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/blogs/blog/${id}`
+      );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const updateBlog = createAsyncThunk<Blog, Object | any>(
+  "blogs/updateBlog",
+  async (data, thunkAPI) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/blogs/blog/${data._id}`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteBlog = createAsyncThunk<string, string>(
+  "blogs/deleteBlog",
+  async (id, thunkAPI) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/api/blogs/blog/${id}`
+      );
+      // to reload page when deleted. other method is
+      thunkAPI.dispatch(getBlogs());
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const createBlog = createAsyncThunk<Blog, Object>(
   "blogs/createBlog",
   async (data, thunkAPI) => {
     try {
@@ -71,6 +116,21 @@ export const blogSlice = createSlice({
       state.loading = false;
       state.errors = action.payload;
     });
+    builder.addCase(getBlogById.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(getBlogById.fulfilled, (state, action) => {
+      state.loading = false;
+      state.singleBlog = action.payload;
+    });
+    builder.addCase(updateBlog.fulfilled, (state, action) => {
+      state.loading = false;
+      state.singleBlog = action.payload;
+    });
+    // builder.addCase(deleteBlog.fulfilled, (state, action) => {
+    //   state.loading = false;
+    //   state.singleBlog = null;
+    // });
   },
 });
 
