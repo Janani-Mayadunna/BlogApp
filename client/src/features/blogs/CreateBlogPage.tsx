@@ -10,10 +10,11 @@ import { purple } from "@mui/material/colors";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { useAppDispatch } from "../../store/store";
 import { createBlog } from "./blogSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CreateBlogPage() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   /* STATES OF BLOG */
   const [blog, setBlog] = useState({
@@ -36,6 +37,7 @@ export default function CreateBlogPage() {
       content: "",
       image: "",
     });
+    navigate("/");
   };
 
   /* STYLINGS */
@@ -125,7 +127,7 @@ export default function CreateBlogPage() {
 
       <Box display="flex" justifyContent="center" alignItems="center">
         <ColorButton variant="contained" onClick={handleSubmit}>
-          <Link to="/">Upload Blog</Link>
+          Upload Blog
           <input hidden accept="image/*" multiple type="file" />
         </ColorButton>
         <Snackbar

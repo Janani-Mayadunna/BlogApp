@@ -17,6 +17,9 @@ import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { logOutUser } from "../../features/account/accountSlice";
 import { Button } from "@mui/material";
+import Switch from "@mui/material/Switch";
+
+const label = { inputProps: { "aria-label": "Switch demo" } };
 
 const bfLoginLinks = [
   { label: "Login", path: "/login" },
@@ -24,28 +27,6 @@ const bfLoginLinks = [
   // {isLoggedIn ? ( label: "Login", path: "/login" ) : ( label: "Register", path: "/register" )}
   // { label: "Register", path: "/register" },
 ];
-
-const appBarTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#1976d2",
-    },
-  },
-});
-
-const headerTheme = createTheme({
-  components: {
-    MuiAppBar: {
-      styleOverrides: {
-        colorPrimary: {
-          // backgroundColor: "#159895",
-          backgroundColor: "#907ad6",
-        },
-      },
-    },
-  },
-});
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -87,7 +68,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar({
+  change,
+  check,
+}: {
+  change: any;
+  check: any;
+}) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -131,9 +118,34 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>
-        <Link style={{ textDecoration: "none" }} to="#">
-          Log Out
-        </Link>
+        <Typography
+          noWrap
+          component="div"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            "& a": {
+              textDecoration: "none",
+              color: "inherit",
+              "&:hover": {
+                textDecoration: "none",
+                color: "inherit",
+              },
+            },
+          }}
+        >
+          <Link style={{ textDecoration: "none" }} to="/createblog">
+            Create Blog
+          </Link>
+        </Typography>
+      </MenuItem>
+      <MenuItem>
+        <Switch
+          {...label}
+          defaultChecked
+          color="default"
+          onChange={change}
+          checked={check}
+        />
       </MenuItem>
     </Menu>
   );
@@ -169,18 +181,55 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
 
       <MenuItem>
-        <Typography>
+        <Typography
+          noWrap
+          component="div"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            "& a": {
+              textDecoration: "none",
+              color: "inherit",
+              "&:hover": {
+                textDecoration: "none",
+                color: "inherit",
+              },
+            },
+          }}
+        >
           <Link style={{ textDecoration: "none" }} to="#">
             Create Blog
           </Link>
         </Typography>
       </MenuItem>
       <MenuItem>
-        <Typography>
+        <Typography
+          noWrap
+          component="div"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            "& a": {
+              textDecoration: "none",
+              color: "inherit",
+              "&:hover": {
+                textDecoration: "none",
+                color: "inherit",
+              },
+            },
+          }}
+        >
           <Link style={{ textDecoration: "none" }} to="#">
-            Log Out
+            Log out
           </Link>
         </Typography>
+      </MenuItem>
+      <MenuItem>
+        <Switch
+          {...label}
+          defaultChecked
+          color="default"
+          onChange={change}
+          checked={check}
+        />
       </MenuItem>
     </Menu>
   );
@@ -191,39 +240,41 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1, marginBottom: 5 }}>
-      <ThemeProvider theme={headerTheme}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{
-                display: { xs: "none", sm: "block" },
-                "& a": {
-                  fontSize: "1.7rem",
+      {/* <ThemeProvider theme={headerTheme}> */}
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{
+              display: { xs: "none", sm: "block" },
+              "& a": {
+                fontSize: "1.7rem",
+                textDecoration: "none",
+                color: "inherit",
+                "&:hover": {
                   textDecoration: "none",
                   color: "inherit",
-                  "&:hover": {
-                    textDecoration: "none",
-                    color: "inherit",
-                  },
                 },
-              }}
-            >
-              <Link style={{ textDecoration: "none" }} to="/">
-                Blog Space
-              </Link>
-            </Typography>
+              },
+            }}
+          >
+            <Link style={{ textDecoration: "none" }} to="/">
+              Blog Space
+            </Link>
+          </Typography>
+
+          {isLoggedIn ? (
             <Box>
               <Search>
                 <SearchIconWrapper>
@@ -235,10 +286,28 @@ export default function PrimarySearchAppBar() {
                 />
               </Search>
             </Box>
-            <Box sx={{ flexGrow: 1 }} />
+          ) : (
+            ""
+          )}
+          <Box sx={{ flexGrow: 1 }} />
 
-            <MenuItem>
-              {isLoggedIn ? (
+          <MenuItem>
+            {isLoggedIn ? (
+              <Typography
+                noWrap
+                component="div"
+                sx={{
+                  display: { xs: "none", sm: "block" },
+                  "& a": {
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": {
+                      textDecoration: "none",
+                      color: "inherit",
+                    },
+                  },
+                }}
+              >
                 <Link
                   style={{ textDecoration: "none" }}
                   to={"/login"}
@@ -247,12 +316,29 @@ export default function PrimarySearchAppBar() {
                   Log out
                   {/* <Button onClick={() => dispatch(logOutUser())}></Button> */}
                 </Link>
-              ) : (
+              </Typography>
+            ) : (
+              <Typography
+                noWrap
+                component="div"
+                sx={{
+                  display: { xs: "none", sm: "block" },
+                  "& a": {
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": {
+                      textDecoration: "none",
+                      color: "inherit",
+                    },
+                  },
+                }}
+              >
                 <Link style={{ textDecoration: "none" }} to={"/login"}>
                   Login
                 </Link>
-              )}
-              {/* <ul>
+              </Typography>
+            )}
+            {/* <ul>
                 {bfLoginLinks.map((link, index) => (
                   <Typography
                     variant="h6"
@@ -281,42 +367,42 @@ export default function PrimarySearchAppBar() {
                   </Typography>
                 ))}
               </ul> */}
-            </MenuItem>
+          </MenuItem>
 
-            <Box
-              sx={{
-                display: { xs: "none", md: "flex" },
-              }}
-            >
-              <MenuItem>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-              </MenuItem>
-            </Box>
-            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+            }}
+          >
+            <MenuItem>
               <IconButton
                 size="large"
-                aria-label="show more"
-                aria-controls={mobileMenuId}
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
                 aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
+                onClick={handleProfileMenuOpen}
                 color="inherit"
               >
-                <MoreIcon />
+                <AccountCircle />
               </IconButton>
-            </Box>
-          </Toolbar>
-        </AppBar>
-      </ThemeProvider>
+            </MenuItem>
+          </Box>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      {/* </ThemeProvider> */}
       {renderMobileMenu}
       {renderMenu}
     </Box>

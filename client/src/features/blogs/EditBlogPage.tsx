@@ -41,6 +41,7 @@ export default function EditBlogPage() {
 
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    handleClick();
 
     let data = {
       _id: id,
@@ -49,6 +50,7 @@ export default function EditBlogPage() {
       image: blog.image,
     };
     dispatch(updateBlog(data));
+    navigate("/");
   };
 
   const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
@@ -62,22 +64,12 @@ export default function EditBlogPage() {
   //Button stylings
   const ColorButtonUpdate = styled(Button)<ButtonProps>(({ theme }) => ({
     color: theme.palette.getContrastText(purple[500]),
-    height: 40,
-    width: 150,
     backgroundColor: "#280B7C",
-    "&:hover": {
-      backgroundColor: purple[700],
-    },
   }));
 
   const ColorButtonDelete = styled(Button)<ButtonProps>(({ theme }) => ({
     color: theme.palette.getContrastText(purple[500]),
-    height: 40,
-    width: 150,
     backgroundColor: "#CA3A1B",
-    "&:hover": {
-      backgroundColor: purple[700],
-    },
   }));
 
   //Alert stylings
@@ -157,19 +149,9 @@ export default function EditBlogPage() {
           <Box display="flex" justifyContent="center" alignItems="center">
             <ColorButtonUpdate variant="contained" onClick={handleSubmit}>
               Update Blog
-              <input hidden accept="image/*" multiple type="file" />
             </ColorButtonUpdate>
-            <Snackbar
-              open={open}
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-              autoHideDuration={6000}
-              onClose={handleClose}
-            >
-              <Alert
-                onClose={handleClose}
-                severity="success"
-                sx={{ width: "100%" }}
-              >
+            <Snackbar open={open} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success">
                 Blog Updated Successfully!
               </Alert>
             </Snackbar>
@@ -180,19 +162,9 @@ export default function EditBlogPage() {
           <Box display="flex" justifyContent="center" alignItems="center">
             <ColorButtonDelete variant="contained" onClick={handleDelete}>
               Delete Blog
-              <input hidden accept="image/*" multiple type="file" />
             </ColorButtonDelete>
-            <Snackbar
-              open={open}
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-              autoHideDuration={6000}
-              onClose={handleClose}
-            >
-              <Alert
-                onClose={handleClose}
-                severity="success"
-                sx={{ width: "100%" }}
-              >
+            <Snackbar open={open} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success">
                 Blog Updated Successfully!
               </Alert>
             </Snackbar>

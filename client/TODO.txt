@@ -1,18 +1,19 @@
 
 Blog
-    connect blog with User
-    Add a rating    
+    Connect blog with User 
+        -Display Edit button only if the current user = author
+    Add a rating 
+    Add a text editor to insert blog content   
+    Display date created
+    Display author name
+    Search
 
-Auth methods
-    User schema
-    Login
-    AuthRoute    (logged in, admin)
+Styling
+    Login page
+    Footer    
+    Carousel images
 
-Rating CRUD
-    joining schemas    
+User profile    
 
-Appbar in small screen    
+Pagination
 
-Add date created to blog
-
-Input blog

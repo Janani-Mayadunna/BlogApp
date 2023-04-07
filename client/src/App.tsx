@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import PageRender from "./PageRender";
@@ -15,9 +15,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getCurrentUser } from "./features/account/accountSlice";
 import AuthGuard from "./components/guards/AuthGuard";
+import { ThemeProvider, createTheme } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import { darkTheme, lightTheme } from "./components/theme/theme";
 
 function App() {
   const dispatch = useAppDispatch();
+  const [darkMode, setDarkMode] = useState(false);
 
   const { isLoggedIn } = useAppSelector((state) => state.account);
 
@@ -33,31 +37,36 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <ToastContainer />
-        <PrimarySearchAppBar />
-        <Container sx={{ marginY: 5, marginTop: 0 }}>
-          <Routes>
-            {/* <Route path="/" Component={PageRender} />
-            <Route path="/:page" Component={PageRender} />
-            <Route path="/:page/:slug" Component={PageRender} /> */}
+        {/* <ThemeProvider theme={theme}> */}
+        <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+          <CssBaseline />
 
-            {/* <Route path="/" element={<BlogsPage />} /> */}
-            <Route
-              path="/"
-              element={isLoggedIn ? <BlogsPage /> : <Navigate to="/login" />}
-            />
-            <Route path="/blog/:id" element={<SingleBlogPage />} />
-            <Route element={<AuthGuard />}>
-              <Route path="/createblog" element={<CreateBlogPage />} />
-              <Route path="/editblog/:id" element={<EditBlogPage />} />
-            </Route>
-            {/* <Route path="/login" element={<LoginPage />} /> */}
-            <Route
-              path="/login"
-              element={isLoggedIn ? <Navigate to="/" /> : <LoginPage />}
-            />
-          </Routes>
-        </Container>
+          <ToastContainer />
+
+          <PrimarySearchAppBar
+            check={darkMode}
+            change={() => setDarkMode(!darkMode)}
+          />
+
+          <Container sx={{ marginY: 5, marginTop: 0 }}>
+            <Routes>
+              <Route
+                path="/login"
+                element={isLoggedIn ? <Navigate to="/" /> : <LoginPage />}
+              />
+              <Route
+                path="/"
+                element={isLoggedIn ? <BlogsPage /> : <Navigate to="/login" />}
+              />
+              <Route path="/blog/:id" element={<SingleBlogPage />} />
+              <Route element={<AuthGuard />}>
+                <Route path="/createblog" element={<CreateBlogPage />} />
+                <Route path="/editblog/:id" element={<EditBlogPage />} />
+              </Route>
+              {/* <Route path="/login" element={<LoginPage />} /> */}
+            </Routes>
+          </Container>
+        </ThemeProvider>
       </BrowserRouter>
     </div>
   );

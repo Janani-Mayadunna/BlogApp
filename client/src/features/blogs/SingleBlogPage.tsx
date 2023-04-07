@@ -40,9 +40,17 @@ export default function SingleBlogPage() {
         <Typography variant="body1">{singleBlog?.content}</Typography>
       </Box>
 
-      <Box>
-        <Link to={`/editblog/${singleBlog?._id}`}>
-          <Button variant="outlined" disableElevation>
+      <Box padding={5}>
+        <Link
+          style={{ textDecoration: "none" }}
+          to={`/editblog/${singleBlog?._id}`}
+        >
+          <Button
+            color="info"
+            variant="contained"
+            disableElevation
+            style={{ width: 5 }}
+          >
             Edit
           </Button>
         </Link>
