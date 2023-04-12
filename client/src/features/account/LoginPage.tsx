@@ -31,7 +31,7 @@ export default function LoginPage() {
       >
         <Box
           sx={{
-            backgroundColor: "#4F518C",
+            backgroundColor: "rgba(79, 81, 140, 0.5)",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -41,8 +41,6 @@ export default function LoginPage() {
             marginTop: "5ch",
             padding: "5ch",
             borderRadius: "2ch",
-            boxShadow: "5px 5px 20px #ccc",
-            ":hover": { boxShadow: "10px 10px 20px #ccc" },
           }}
         >
           <Typography variant="h4" paddingBottom={3} textAlign="center">
