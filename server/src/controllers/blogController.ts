@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Blog from "../models/Blog";
 
+// retrieves all documents from the "Blog" collection in a MongoDB database and returns them as a JSON response.
 export const getAllBlogs = async (req: Request, res: Response) => {
   const blogs = await Blog.find();
 
@@ -33,8 +34,11 @@ export const createBlog = async (req: Request, res: Response) => {
 };
 
 export const updateBlog = async (req: Request, res: Response) => {
+  // "id" parameter is extracted from the "req.params" object, which contains the URL parameters of the HTTP request.
   const { id } = req.params;
+  // find the document with the specified "id" and update its contents with the data in the "req.body" object.
   const gameToUpdate = await Blog.findByIdAndUpdate(id, req.body, {
+    //  ensure that the updated document is returned in the response.
     new: true,
   });
   try {

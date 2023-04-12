@@ -37,7 +37,6 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {/* <ThemeProvider theme={theme}> */}
         <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
           <CssBaseline />
 
@@ -63,7 +62,6 @@ function App() {
                 <Route path="/createblog" element={<CreateBlogPage />} />
                 <Route path="/editblog/:id" element={<EditBlogPage />} />
               </Route>
-              {/* <Route path="/login" element={<LoginPage />} /> */}
             </Routes>
           </Container>
         </ThemeProvider>
