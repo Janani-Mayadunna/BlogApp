@@ -7,8 +7,9 @@ import React, { useState, MouseEvent } from "react";
 import LoginIcon from "@mui/icons-material/Login";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../store/store";
-import { loginUser } from "./accountSlice";
+// import { loginUser } from "./accountSlice";
 import "./LoginPage.css";
+import { loginRequest } from "../../store/auth/actions";
 
 export default function LoginPage() {
   const [user, setUser] = useState({
@@ -20,7 +21,16 @@ export default function LoginPage() {
 
   function handleSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    dispatch(loginUser(user));
+
+    let data: any = {
+      values: {
+        email: user.email,
+        password: user.password,
+      },
+    };
+    dispatch(loginRequest(data));
+    console.log(data);
+    // dispatch(loginUser(user));
     // <Link to={"/"}>Login</Link>;
   }
 
