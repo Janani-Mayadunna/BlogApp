@@ -1,0 +1,19 @@
+
+Blog
+    Connect blog with User 
+        -Display Edit button only if the current user = author
+    Add a rating 
+    Add a text editor to insert blog content   
+    Display date created
+    Display author name
+    Search
+
+Styling
+    Login page
+    Footer    
+    Carousel images
+
+User profile    
+
+Pagination
+
