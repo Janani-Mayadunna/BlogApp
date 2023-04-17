@@ -15,9 +15,9 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { ThemeProvider } from "@emotion/react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { logOutUser } from "../../features/account/accountSlice";
 import { Button } from "@mui/material";
 import Switch from "@mui/material/Switch";
+import { logoutRequest } from "../../store/auth/actions";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
@@ -217,8 +217,13 @@ export default function PrimarySearchAppBar({
             },
           }}
         >
-          <Link style={{ textDecoration: "none" }} to="#">
+          <Link
+            style={{ textDecoration: "none" }}
+            onClick={() => dispatch(logoutRequest())}
+            to={"/login"}
+          >
             Log out
+            {/* <Button onClick={() => dispatch(logoutRequest())}></Button> */}
           </Link>
         </Typography>
       </MenuItem>
@@ -234,7 +239,7 @@ export default function PrimarySearchAppBar({
     </Menu>
   );
 
-  const { isLoggedIn } = useAppSelector((state) => state.account);
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
 
   const dispatch = useAppDispatch();
 
@@ -310,11 +315,11 @@ export default function PrimarySearchAppBar({
               >
                 <Link
                   style={{ textDecoration: "none" }}
+                  onClick={() => dispatch(logoutRequest())}
                   to={"/login"}
-                  onClick={() => dispatch(logOutUser())}
                 >
                   Log out
-                  {/* <Button onClick={() => dispatch(logOutUser())}></Button> */}
+                  {/* <Button onClick={() => dispatch(logoutRequest())}></Button> */}
                 </Link>
               </Typography>
             ) : (

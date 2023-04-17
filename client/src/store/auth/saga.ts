@@ -6,10 +6,12 @@ import {
   // getCurrentUserSuccess,
   loginFailure,
   loginSuccess,
+  logoutFailure,
+  logoutSuccess,
   setLoggedIn,
 } from "./actions";
 
-import { LOGIN_REQUEST } from "./actionTypes";
+import { LOGIN_REQUEST, LOGOUT_REQUEST } from "./actionTypes";
 import { IAuth } from "./types";
 
 const login = async (payload: { email: string; password: string }) => {
@@ -45,6 +47,16 @@ function* loginSaga(action: any) {
   }
 }
 
+function* logoutSaga() {
+  try {
+    localStorage.removeItem("jwt-blogapp");
+    yield put(setLoggedIn(false));
+    yield put(logoutSuccess());
+  } catch (error) {
+    yield put(logoutFailure(error));
+  }
+}
+
 // function* getCurrentUserSaga() {
 //   try {
 //     const token = JSON.parse(localStorage.getItem("jwt-blogapp")!);
@@ -77,6 +89,8 @@ function* loginSaga(action: any) {
 
 function* authSaga() {
   yield all([takeLatest(LOGIN_REQUEST, loginSaga)]);
+  yield takeLatest(LOGOUT_REQUEST, logoutSaga);
+
   // yield takeLatest(GET_CURRENT_USER, getCurrentUserSaga);
 }
 

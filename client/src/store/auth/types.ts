@@ -1,4 +1,11 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./actionTypes";
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
+} from "./actionTypes";
 
 export interface IAuth {
   token: string;
@@ -10,6 +17,8 @@ export interface AuthState {
   token: string;
   isLoggedIn: boolean;
 }
+
+//Login payload interfaces
 
 export interface LoginPayload {
   values: {
@@ -27,12 +36,39 @@ export interface LoginFailurePayload {
   error: string;
 }
 
+//Logout payload interfaces
+
+export interface LogoutRequestPayload {}
+
+export interface LogoutSuccessPayload {}
+
+export interface LogoutFailurePayload {
+  error: any;
+}
+
+//types logout
+
+export type LogoutRequest = {
+  type: typeof LOGOUT_REQUEST;
+  payload: LogoutRequestPayload;
+};
+
+export type LogoutSuccess = {
+  type: typeof LOGOUT_SUCCESS;
+  payload: LogoutSuccessPayload;
+};
+
+export type LogoutFailure = {
+  type: typeof LOGOUT_FAILURE;
+  payload: LogoutFailurePayload;
+};
+
+//types login
+
 export type LoginRequest = {
   type: typeof LOGIN_REQUEST;
   payload: LoginPayload;
 };
-
-//types
 
 export type LoginSuccess = {
   type: typeof LOGIN_SUCCESS;
@@ -44,4 +80,10 @@ export type LoginFailure = {
   payload: LoginFailurePayload;
 };
 
-export type AuthAction = LoginRequest | LoginSuccess | LoginFailure;
+export type AuthAction =
+  | LoginRequest
+  | LoginSuccess
+  | LoginFailure
+  | LogoutRequest
+  | LogoutSuccess
+  | LogoutFailure;
