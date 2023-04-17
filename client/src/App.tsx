@@ -16,6 +16,8 @@ import AuthGuard from "./components/guards/AuthGuard";
 import { ThemeProvider, createTheme } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { darkTheme, lightTheme } from "./components/theme/theme";
+import BlogsPage from "./features/blogs/BlogsPage";
+import { getBlogsRequest } from "./store/blog/actions";
 // import { getCurrentUser } from "./store/auth/actions";
 // import { GET_CURRENT_USER } from "./store/auth/actionTypes";
 
@@ -30,7 +32,7 @@ function App() {
   }
 
   const initApp = useCallback(async () => {
-    // await dispatch(getBlogs());
+    await dispatch(getBlogsRequest());
     // dispatch(getCurrentUser());
     // console.log("Current user jj: ", getCurrentUser);
   }, [dispatch]);
@@ -60,9 +62,7 @@ function App() {
               />
               <Route
                 path="/"
-                element={
-                  isLoggedIn ? <CreateBlogPage /> : <Navigate to="/login" />
-                }
+                element={isLoggedIn ? <BlogsPage /> : <Navigate to="/login" />}
               />
               <Route path="/blog/:id" element={<SingleBlogPage />} />
               <Route element={<AuthGuard />}>

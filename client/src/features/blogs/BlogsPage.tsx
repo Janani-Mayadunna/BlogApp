@@ -36,7 +36,7 @@ export default function BlogPage() {
                       }}
                     >
                       {blog.title}
-                      {/* Tour name */}
+                      {/*Tour name */}
                     </Typography>
                   </Box>
 
