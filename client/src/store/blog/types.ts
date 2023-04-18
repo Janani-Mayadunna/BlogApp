@@ -6,6 +6,9 @@ import {
   GET_BLOG_BY_ID_REQUEST,
   GET_BLOG_BY_ID_SUCCESS,
   GET_BLOG_BY_ID_FAILURE,
+  CREATE_BLOG_REQUEST,
+  CREATE_BLOG_SUCCESS,
+  CREATE_BLOG_FAILURE,
 } from "./actionTypes";
 
 export interface BlogState {
@@ -59,10 +62,30 @@ export type GetBlogByIdFailure = {
   payload: any;
 };
 
+/* Create Blog */
+
+export type CreateBlogRequest = {
+  type: typeof CREATE_BLOG_REQUEST;
+  payload: Object;
+};
+
+export type CreateBlogSuccess = {
+  type: typeof CREATE_BLOG_SUCCESS;
+  payload: Blog;
+};
+
+export type CreateBlogFailure = {
+  type: typeof CREATE_BLOG_FAILURE;
+  payload: any;
+};
+
 export type BlogAction =
   | GetBlogsRequest
   | GetBlogsSuccess
   | GetBlogsFailure
   | GetBlogByIdRequest
   | GetBlogByIdSuccess
-  | GetBlogByIdFailure;
+  | GetBlogByIdFailure
+  | CreateBlogRequest
+  | CreateBlogSuccess
+  | CreateBlogFailure;

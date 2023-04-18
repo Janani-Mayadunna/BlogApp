@@ -6,11 +6,20 @@ import {
   getBlogsFailure,
   getBlogByIdSuccess,
   getBlogByIdFailure,
+  createBlogSuccess,
+  createBlogFailure,
 } from "./actions";
 
 import { Blog } from "../../interfaces/Blog";
-import { GET_BLOGS_REQUEST, GET_BLOG_BY_ID_REQUEST } from "./actionTypes";
-// import axios from "axios";
+import {
+  CREATE_BLOG_REQUEST,
+  GET_BLOGS_REQUEST,
+  GET_BLOG_BY_ID_REQUEST,
+} from "./actionTypes";
+import { CreateBlogFailure, CreateBlogRequest } from "./types";
+import axios from "axios";
+
+/* Get blogs */
 
 const fetchBlogs = async () => {
   const response = await fetch("http://localhost:8080/api/blogs");
@@ -26,6 +35,8 @@ export function* fetchBlogsSaga() {
     yield put(getBlogsFailure({ errors: error.message }));
   }
 }
+
+/* Get blog by id */
 
 const fetchBlogById = async (id: string) => {
   console.log("ID here : ", id);
@@ -53,9 +64,29 @@ export function* fetchSingleBlogSaga(action: {
   }
 }
 
+/* Create blog */
+
+const createBlog = async (payload: Object) => {
+  const response = await axios.post<Blog>(
+    "http://localhost:8080/api/blogs/blog",
+    payload
+  );
+  return response.data;
+};
+
+export function* createBlogSaga(action: CreateBlogRequest) {
+  try {
+    const response: Blog = yield call(createBlog, action.payload);
+    yield put(createBlogSuccess(response));
+  } catch (error: any) {
+    yield put(createBlogFailure({ errors: error.message }));
+  }
+}
+
 function* blogsSaga() {
   yield takeLatest(GET_BLOGS_REQUEST, fetchBlogsSaga);
   yield takeLatest(GET_BLOG_BY_ID_REQUEST, fetchSingleBlogSaga);
+  yield takeLatest(CREATE_BLOG_REQUEST, createBlogSaga);
 }
 
 export default blogsSaga;

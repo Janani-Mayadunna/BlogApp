@@ -5,6 +5,9 @@ import {
   GET_BLOG_BY_ID_REQUEST,
   GET_BLOG_BY_ID_SUCCESS,
   GET_BLOG_BY_ID_FAILURE,
+  CREATE_BLOG_REQUEST,
+  CREATE_BLOG_SUCCESS,
+  CREATE_BLOG_FAILURE,
 } from "./actionTypes";
 
 import { BlogAction, BlogState } from "./types";
@@ -53,6 +56,24 @@ const reducers = (state = initialState, action: BlogAction) => {
         ...state,
         loading: false,
         errors: action.payload.errors,
+      };
+    case CREATE_BLOG_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        blog: action.payload,
+      };
+    case CREATE_BLOG_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        errors: false,
+      };
+    case CREATE_BLOG_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        errors: action.payload.error,
       };
     default:
       return { ...state };

@@ -6,6 +6,9 @@ import {
   GET_BLOG_BY_ID_REQUEST,
   GET_BLOG_BY_ID_SUCCESS,
   GET_BLOG_BY_ID_FAILURE,
+  CREATE_BLOG_REQUEST,
+  CREATE_BLOG_SUCCESS,
+  CREATE_BLOG_FAILURE,
 } from "./actionTypes";
 
 import {
@@ -17,6 +20,9 @@ import {
   GetBlogByIdRequest,
   GetBlogByIdSuccess,
   GetBlogByIdFailure,
+  CreateBlogRequest,
+  CreateBlogSuccess,
+  CreateBlogFailure,
 } from "./types";
 
 /* Get blogs */
@@ -55,4 +61,22 @@ export const getBlogByIdSuccess = (singleBlog: Blog): GetBlogByIdSuccess => ({
 export const getBlogByIdFailure = (error: any): GetBlogByIdFailure => ({
   type: GET_BLOG_BY_ID_FAILURE,
   payload: error,
+});
+
+/* Create blog */
+
+export const createBlogRequest = (payload: Object): CreateBlogRequest => ({
+  type: CREATE_BLOG_REQUEST,
+  payload,
+  // payload:object,
+});
+
+export const createBlogSuccess = (payload: Blog): CreateBlogSuccess => ({
+  type: CREATE_BLOG_SUCCESS,
+  payload,
+});
+
+export const createBlogFailure = (payload: any): CreateBlogFailure => ({
+  type: CREATE_BLOG_FAILURE,
+  payload,
 });
