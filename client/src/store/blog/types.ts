@@ -3,6 +3,9 @@ import {
   GET_BLOGS_REQUEST,
   GET_BLOGS_SUCCESS,
   GET_BLOGS_FAILURE,
+  GET_BLOG_BY_ID_REQUEST,
+  GET_BLOG_BY_ID_SUCCESS,
+  GET_BLOG_BY_ID_FAILURE,
 } from "./actionTypes";
 
 export interface BlogState {
@@ -22,6 +25,8 @@ export interface GetBlogsFailurePayload {
   errors: any;
 }
 
+/* Get Blogs */
+
 export type GetBlogsRequest = {
   type: typeof GET_BLOGS_REQUEST;
   payload: {};
@@ -37,78 +42,27 @@ export type GetBlogsFailure = {
   payload: GetBlogsFailurePayload;
 };
 
-export type BlogAction = GetBlogsRequest | GetBlogsSuccess | GetBlogsFailure;
+/* Get blog by id */
 
-// export interface FetchBlogsRequestAction {
-//   type: typeof FETCH_BLOGS_REQUEST;
-// }
+export type GetBlogByIdRequest = {
+  type: typeof GET_BLOG_BY_ID_REQUEST;
+  payload: string;
+};
 
-// export interface FetchBlogsSuccessAction {
-//   type: typeof FETCH_BLOGS_SUCCESS;
-//   payload: Blog[];
-// }
+export type GetBlogByIdSuccess = {
+  type: typeof GET_BLOG_BY_ID_SUCCESS;
+  payload: Blog;
+};
 
-// export interface FetchBlogsFailureAction {
-//   type: typeof FETCH_BLOGS_FAILURE;
-//   payload: any;
-// }
+export type GetBlogByIdFailure = {
+  type: typeof GET_BLOG_BY_ID_FAILURE;
+  payload: any;
+};
 
-// export interface FetchBlogRequestAction {
-//   type: typeof FETCH_BLOG_REQUEST;
-//   payload: string;
-// }
-
-// export interface FetchBlogSuccessAction {
-//   type: typeof FETCH_BLOG_SUCCESS;
-//   payload: Blog;
-// }
-
-// export interface FetchBlogFailureAction {
-//   type: typeof FETCH_BLOG_FAILURE;
-//   payload: any;
-// }
-
-// export interface UpdateBlogRequestAction {
-//   type: typeof UPDATE_BLOG_REQUEST;
-//   payload: Object | any;
-// }
-
-// export interface UpdateBlogSuccessAction {
-//   type: typeof UPDATE_BLOG_SUCCESS;
-//   payload: Blog;
-// }
-
-// export interface UpdateBlogFailureAction {
-//   type: typeof UPDATE_BLOG_FAILURE;
-//   payload: any;
-// }
-
-// export interface DeleteBlogRequestAction {
-//   type: typeof DELETE_BLOG_REQUEST;
-//   payload: string;
-// }
-
-// export interface DeleteBlogSuccessAction {
-//   type: typeof DELETE_BLOG_SUCCESS;
-//   payload: string;
-// }
-
-// export interface DeleteBlogFailureAction {
-//   type: typeof DELETE_BLOG_FAILURE;
-//   payload: any;
-// }
-
-// export interface CreateBlogRequestAction {
-//   type: typeof CREATE_BLOG_REQUEST;
-//   payload: Object;
-// }
-
-// export interface CreateBlogSuccessAction {
-//   type: typeof CREATE_BLOG_SUCCESS;
-//   payload: Blog;
-// }
-
-// export interface CreateBlogFailureAction {
-//   type: typeof CREATE_BLOG_FAILURE;
-//   payload: any;
-// }
+export type BlogAction =
+  | GetBlogsRequest
+  | GetBlogsSuccess
+  | GetBlogsFailure
+  | GetBlogByIdRequest
+  | GetBlogByIdSuccess
+  | GetBlogByIdFailure;
