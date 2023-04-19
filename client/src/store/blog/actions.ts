@@ -12,6 +12,9 @@ import {
   UPDATE_BLOG_REQUEST,
   UPDATE_BLOG_SUCCESS,
   UPDATE_BLOG_FAILURE,
+  DELETE_BLOG_REQUEST,
+  DELETE_BLOG_SUCCESS,
+  DELETE_BLOG_FAILURE,
 } from "./actionTypes";
 
 import {
@@ -31,6 +34,9 @@ import {
   UpdateBlogRequest,
   UpdateBlogSuccess,
   UpdateBlogFailure,
+  DeleteBlogRequest,
+  DeleteBlogSuccess,
+  DeleteBlogFailure,
 } from "./types";
 
 /* Get blogs */
@@ -112,4 +118,21 @@ export const updateBlogFailure = (
 ): UpdateBlogFailure => ({
   type: UPDATE_BLOG_FAILURE,
   payload,
+});
+
+/* Delete blog */
+
+export const deleteBlogRequest = (id: string): DeleteBlogRequest => ({
+  type: DELETE_BLOG_REQUEST,
+  payload: id,
+});
+
+export const deleteBlogSuccess = (payload: any): DeleteBlogSuccess => ({
+  type: DELETE_BLOG_SUCCESS,
+  payload: payload,
+});
+
+export const deleteBlogFailure = (error: any): DeleteBlogFailure => ({
+  type: DELETE_BLOG_FAILURE,
+  payload: error,
 });
