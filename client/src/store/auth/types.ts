@@ -5,6 +5,9 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
+  GET_CURRENT_USER,
+  GET_CURRENT_USER_SUCCESS,
+  GET_CURRENT_USER_FAILURE,
 } from "./actionTypes";
 
 export interface IAuth {
@@ -80,10 +83,28 @@ export type LoginFailure = {
   payload: LoginFailurePayload;
 };
 
+/* get current user */
+export type GetCurrentuser = {
+  type: typeof GET_CURRENT_USER;
+  payload: {};
+};
+
+export type GetCurrentuserSuccess = {
+  type: typeof GET_CURRENT_USER_SUCCESS;
+};
+
+export type GetCurrentuserFailure = {
+  type: typeof GET_CURRENT_USER_FAILURE;
+  payload: { error: string };
+};
+
 export type AuthAction =
   | LoginRequest
   | LoginSuccess
   | LoginFailure
   | LogoutRequest
   | LogoutSuccess
-  | LogoutFailure;
+  | LogoutFailure
+  | GetCurrentuser
+  | GetCurrentuserSuccess
+  | GetCurrentuserFailure;

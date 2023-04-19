@@ -92,6 +92,7 @@ export function* createBlogSaga(action: CreateBlogRequest) {
   try {
     const response: Blog = yield call(createBlog, action.payload);
     yield put(createBlogSuccess(response));
+    window.location.reload();
   } catch (error: any) {
     yield put(createBlogFailure({ errors: error.message }));
   }

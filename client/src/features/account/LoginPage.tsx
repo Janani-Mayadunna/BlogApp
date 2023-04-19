@@ -3,21 +3,32 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import React, { useState, MouseEvent } from "react";
+import React, { useState, MouseEvent, useEffect } from "react";
 import LoginIcon from "@mui/icons-material/Login";
-import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../store/store";
-// import { loginUser } from "./accountSlice";
+import { Link, Navigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/store";
 import "./LoginPage.css";
-import { loginRequest } from "../../store/auth/actions";
+import {
+  getCurrentUser,
+  loginRequest,
+  setLoggedIn,
+} from "../../store/auth/actions";
 
 export default function LoginPage() {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-
   const dispatch = useAppDispatch();
+
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const token = localStorage.getItem("jwt-blogapp");
+  console.log("TOOK", token);
+  useEffect(() => {
+    if (token) {
+      dispatch(getCurrentUser());
+    }
+  }, []);
 
   function handleSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -29,16 +40,15 @@ export default function LoginPage() {
       },
     };
     dispatch(loginRequest(data));
+
+    const token = localStorage.getItem("jwt-blogapp");
+    console.log("TOOK3", token);
     console.log(data);
-    // dispatch(loginUser(user));
-    // <Link to={"/"}>Login</Link>;
   }
 
   return (
     <Container className="loginContainer">
-      <form
-      //   onSubmit={handleSubmit}
-      >
+      <form>
         <Box
           sx={{
             backgroundColor: "rgba(79, 81, 140, 0.5)",
@@ -75,21 +85,19 @@ export default function LoginPage() {
             variant="outlined"
             onChange={(e) => setUser({ ...user, password: e.target.value })}
           />
-
-          <Button
-            endIcon={<LoginIcon />}
-            onClick={handleSubmit}
-            type="submit"
-            sx={{ borderRadius: 2, margin: 4, width: "50%", height: "3rem" }}
-            variant="contained"
-            color="warning"
-          >
-            Login
-          </Button>
-          <Button
-            //   onClick={resetState}
-            sx={{ marginTop: 2, borderRadius: 2 }}
-          >
+          <Link to="/home" style={{ textDecoration: "none" }}>
+            <Button
+              endIcon={<LoginIcon />}
+              onClick={handleSubmit}
+              type="submit"
+              sx={{ borderRadius: 2, margin: 4, width: "50%", height: "3rem" }}
+              variant="contained"
+              color="warning"
+            >
+              Login
+            </Button>
+          </Link>
+          <Button sx={{ marginTop: 2, borderRadius: 2 }}>
             <Link to="/signup"> New here? Sign Up</Link>
           </Button>
         </Box>

@@ -3,13 +3,25 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { textAlign } from "@mui/system";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import CarouselF from "../../components/global/Carousel";
 import FloatingActionButtons from "../../components/global/FloatingActionButtons";
-import { useAppSelector } from "../../store/store";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useEffect, useState } from "react";
+import { getCurrentUser } from "../../store/auth/actions";
 
 export default function BlogPage() {
   const { blogs } = useAppSelector((state) => state.blogs);
+
+  const dispatch = useAppDispatch();
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt-blogapp");
+    if (token) {
+      dispatch(getCurrentUser());
+    }
+  }, []);
 
   return (
     <div>
