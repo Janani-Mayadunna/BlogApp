@@ -8,6 +8,9 @@ import {
   CREATE_BLOG_REQUEST,
   CREATE_BLOG_SUCCESS,
   CREATE_BLOG_FAILURE,
+  UPDATE_BLOG_REQUEST,
+  UPDATE_BLOG_SUCCESS,
+  UPDATE_BLOG_FAILURE,
 } from "./actionTypes";
 
 import { BlogAction, BlogState } from "./types";
@@ -74,6 +77,27 @@ const reducers = (state = initialState, action: BlogAction) => {
         ...state,
         loading: false,
         errors: action.payload.error,
+      };
+    case UPDATE_BLOG_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        id: action.payload.id,
+        data: action.payload.data,
+        error: null,
+      };
+    case UPDATE_BLOG_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    case UPDATE_BLOG_FAILURE:
+      return {
+        ...state,
+        blog: null,
+        loading: false,
+        error: action.payload.error,
       };
     default:
       return { ...state };
