@@ -18,7 +18,7 @@ const login = async (payload: { email: string; password: string }) => {
   try {
     const response = await axios.post<IAuth>(
       // "https://reqres.in/api/login",
-      "http://localhost:8080/api/auth/login",
+      "http://localhost:8090/api/auth/login",
       { email: payload.email, password: payload.password }
     );
     const { token } = response.data;
@@ -67,7 +67,7 @@ function* logoutSaga() {
 //     }
 //     const response: AxiosResponse = yield call(
 //       axios.get,
-//       "http://localhost:8080/api/auth/currentuser",
+//       "http://localhost:8090/api/auth/currentuser",
 //       {
 //         headers: {
 //           Authorization: token,

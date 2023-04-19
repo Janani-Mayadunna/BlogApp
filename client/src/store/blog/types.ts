@@ -9,6 +9,9 @@ import {
   CREATE_BLOG_REQUEST,
   CREATE_BLOG_SUCCESS,
   CREATE_BLOG_FAILURE,
+  UPDATE_BLOG_REQUEST,
+  UPDATE_BLOG_SUCCESS,
+  UPDATE_BLOG_FAILURE,
 } from "./actionTypes";
 
 export interface BlogState {
@@ -79,6 +82,33 @@ export type CreateBlogFailure = {
   payload: any;
 };
 
+/* Update Blog */
+
+export interface UpdateBlogRequestPayload {
+  title: string;
+  content: string;
+  image: string;
+}
+
+export interface UpdateBlogFailurePayload {
+  error: any;
+}
+
+export type UpdateBlogRequest = {
+  type: typeof UPDATE_BLOG_REQUEST;
+  payload: { id: string; data: UpdateBlogRequestPayload };
+};
+
+export type UpdateBlogSuccess = {
+  type: typeof UPDATE_BLOG_SUCCESS;
+  payload: Blog;
+};
+
+export type UpdateBlogFailure = {
+  type: typeof UPDATE_BLOG_FAILURE;
+  payload: UpdateBlogFailurePayload;
+};
+
 export type BlogAction =
   | GetBlogsRequest
   | GetBlogsSuccess
@@ -88,4 +118,7 @@ export type BlogAction =
   | GetBlogByIdFailure
   | CreateBlogRequest
   | CreateBlogSuccess
-  | CreateBlogFailure;
+  | CreateBlogFailure
+  | UpdateBlogRequest
+  | UpdateBlogSuccess
+  | UpdateBlogFailure;

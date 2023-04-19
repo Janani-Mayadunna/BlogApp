@@ -9,6 +9,9 @@ import {
   CREATE_BLOG_REQUEST,
   CREATE_BLOG_SUCCESS,
   CREATE_BLOG_FAILURE,
+  UPDATE_BLOG_REQUEST,
+  UPDATE_BLOG_SUCCESS,
+  UPDATE_BLOG_FAILURE,
 } from "./actionTypes";
 
 import {
@@ -23,6 +26,11 @@ import {
   CreateBlogRequest,
   CreateBlogSuccess,
   CreateBlogFailure,
+  UpdateBlogRequestPayload,
+  UpdateBlogFailurePayload,
+  UpdateBlogRequest,
+  UpdateBlogSuccess,
+  UpdateBlogFailure,
 } from "./types";
 
 /* Get blogs */
@@ -78,5 +86,30 @@ export const createBlogSuccess = (payload: Blog): CreateBlogSuccess => ({
 
 export const createBlogFailure = (payload: any): CreateBlogFailure => ({
   type: CREATE_BLOG_FAILURE,
+  payload,
+});
+
+/* Update blog */
+
+export const updateBlogRequest = (
+  id: string,
+  data: UpdateBlogRequestPayload
+): UpdateBlogRequest => ({
+  type: UPDATE_BLOG_REQUEST,
+  payload: {
+    id,
+    data,
+  },
+});
+
+export const updateBlogSuccess = (payload: Blog): UpdateBlogSuccess => ({
+  type: UPDATE_BLOG_SUCCESS,
+  payload,
+});
+
+export const updateBlogFailure = (
+  payload: UpdateBlogFailurePayload
+): UpdateBlogFailure => ({
+  type: UPDATE_BLOG_FAILURE,
   payload,
 });
