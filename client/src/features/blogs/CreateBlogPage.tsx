@@ -9,8 +9,10 @@ import Snackbar from "@mui/material/Snackbar";
 import { purple } from "@mui/material/colors";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { useAppDispatch } from "../../store/store";
-import { createBlog } from "./blogSlice";
+// import { createBlog } from "./blogSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { createBlogRequest } from "../../store/blog/actions";
+import { Blog } from "../../interfaces/Blog";
 
 export default function CreateBlogPage() {
   const dispatch = useAppDispatch();
@@ -26,17 +28,14 @@ export default function CreateBlogPage() {
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    let data = {
+    let data: Blog = {
       title: blog.title,
       content: blog.content,
       image: blog.image,
     };
-    dispatch(createBlog(data));
-    setBlog({
-      title: "",
-      content: "",
-      image: "",
-    });
+    console.log("Create DATA : ", data);
+    dispatch(createBlogRequest(data));
+
     navigate("/");
   };
 
