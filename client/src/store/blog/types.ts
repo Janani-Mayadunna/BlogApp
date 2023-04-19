@@ -12,6 +12,9 @@ import {
   UPDATE_BLOG_REQUEST,
   UPDATE_BLOG_SUCCESS,
   UPDATE_BLOG_FAILURE,
+  DELETE_BLOG_REQUEST,
+  DELETE_BLOG_SUCCESS,
+  DELETE_BLOG_FAILURE,
 } from "./actionTypes";
 
 export interface BlogState {
@@ -109,6 +112,22 @@ export type UpdateBlogFailure = {
   payload: UpdateBlogFailurePayload;
 };
 
+/* Delete Blog */
+export type DeleteBlogRequest = {
+  type: typeof DELETE_BLOG_REQUEST;
+  payload: string;
+};
+
+export type DeleteBlogSuccess = {
+  type: typeof DELETE_BLOG_SUCCESS;
+  payload: Blog;
+};
+
+export type DeleteBlogFailure = {
+  type: typeof DELETE_BLOG_FAILURE;
+  payload: any;
+};
+
 export type BlogAction =
   | GetBlogsRequest
   | GetBlogsSuccess
@@ -121,4 +140,7 @@ export type BlogAction =
   | CreateBlogFailure
   | UpdateBlogRequest
   | UpdateBlogSuccess
-  | UpdateBlogFailure;
+  | UpdateBlogFailure
+  | DeleteBlogRequest
+  | DeleteBlogSuccess
+  | DeleteBlogFailure;

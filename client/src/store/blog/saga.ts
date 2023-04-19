@@ -10,11 +10,16 @@ import {
   createBlogFailure,
   updateBlogSuccess,
   updateBlogFailure,
+  deleteBlogSuccess,
+  deleteBlogFailure,
 } from "./actions";
 
 import { Blog } from "../../interfaces/Blog";
 import {
   CREATE_BLOG_REQUEST,
+  DELETE_BLOG_FAILURE,
+  DELETE_BLOG_REQUEST,
+  DELETE_BLOG_SUCCESS,
   GET_BLOGS_REQUEST,
   GET_BLOG_BY_ID_REQUEST,
   UPDATE_BLOG_REQUEST,
@@ -22,6 +27,7 @@ import {
 import {
   CreateBlogFailure,
   CreateBlogRequest,
+  DeleteBlogRequest,
   UpdateBlogRequest,
   UpdateBlogRequestPayload,
 } from "./types";
@@ -122,11 +128,28 @@ export function* updateBlogSaga(action: UpdateBlogRequest) {
   }
 }
 
+const deleteBlog = async (id: string) => {
+  const response = await axios.delete<Blog>(
+    `http://localhost:8090/api/blogs/blog/${id}`
+  );
+  return response.data;
+};
+
+function* deleteBlogSaga(action: DeleteBlogRequest) {
+  try {
+    yield call(deleteBlog, action.payload);
+    yield put(deleteBlogSuccess(action.payload));
+  } catch (error: any) {
+    yield put(deleteBlogFailure({ error: error.message }));
+  }
+}
+
 function* blogsSaga() {
   yield takeLatest(GET_BLOGS_REQUEST, fetchBlogsSaga);
   yield takeLatest(GET_BLOG_BY_ID_REQUEST, fetchSingleBlogSaga);
   yield takeLatest(CREATE_BLOG_REQUEST, createBlogSaga);
   yield takeLatest(UPDATE_BLOG_REQUEST, updateBlogSaga);
+  yield takeLatest(DELETE_BLOG_REQUEST, deleteBlogSaga);
 }
 
 export default blogsSaga;

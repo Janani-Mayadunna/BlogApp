@@ -11,6 +11,7 @@ import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  deleteBlogRequest,
   getBlogByIdRequest,
   updateBlogRequest,
 } from "../../store/blog/actions";
@@ -60,7 +61,7 @@ export default function EditBlogPage() {
 
   const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
     if (!id) return;
-    // dispatch(deleteBlog(id));
+    dispatch(deleteBlogRequest(id));
     navigate("/");
   };
 
