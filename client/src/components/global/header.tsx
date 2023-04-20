@@ -18,6 +18,7 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import { Button } from "@mui/material";
 import Switch from "@mui/material/Switch";
 import { logoutRequest } from "../../store/auth/actions";
+import { useEffect, useState } from "react";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
@@ -218,12 +219,11 @@ export default function PrimarySearchAppBar({
           }}
         >
           <Link
+            to="/login"
             style={{ textDecoration: "none" }}
             onClick={() => dispatch(logoutRequest())}
-            to={"/login"}
           >
             Log out
-            {/* <Button onClick={() => dispatch(logoutRequest())}></Button> */}
           </Link>
         </Typography>
       </MenuItem>
@@ -239,7 +239,9 @@ export default function PrimarySearchAppBar({
     </Menu>
   );
 
-  const { isLoggedIn } = useAppSelector((state) => state.auth);
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+  const token = localStorage.getItem("jwt-blogapp");
 
   const dispatch = useAppDispatch();
 
@@ -279,7 +281,7 @@ export default function PrimarySearchAppBar({
             </Link>
           </Typography>
 
-          {isLoggedIn ? (
+          {token ? (
             <Box>
               <Search>
                 <SearchIconWrapper>
@@ -297,8 +299,9 @@ export default function PrimarySearchAppBar({
           <Box sx={{ flexGrow: 1 }} />
 
           <MenuItem>
-            {isLoggedIn ? (
+            {token ? (
               <Typography
+                onClick={() => dispatch(logoutRequest())}
                 noWrap
                 component="div"
                 sx={{
@@ -313,16 +316,10 @@ export default function PrimarySearchAppBar({
                   },
                 }}
               >
-                <Link
-                  style={{ textDecoration: "none" }}
-                  onClick={() => dispatch(logoutRequest())}
-                  to={"/login"}
-                >
-                  Log out
-                  {/* <Button onClick={() => dispatch(logoutRequest())}></Button> */}
-                </Link>
+                Log out
               </Typography>
             ) : (
+              // </Button>
               <Typography
                 noWrap
                 component="div"

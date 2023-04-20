@@ -1,4 +1,11 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./actionTypes";
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  GET_CURRENT_USER,
+  GET_CURRENT_USER_SUCCESS,
+  GET_CURRENT_USER_FAILURE,
+} from "./actionTypes";
 
 import { AuthAction, AuthState } from "./types";
 
@@ -22,7 +29,7 @@ const reducers = (state = initialState, action: AuthAction) => {
         pending: false,
         token: action.payload.token,
         error: null,
-        isLoggedIn: true,
+        // isLoggedIn: true,
       };
     case LOGIN_FAILURE:
       return {
@@ -30,8 +37,26 @@ const reducers = (state = initialState, action: AuthAction) => {
         pending: false,
         token: "",
         error: action.payload.error,
-        isLoggedIn: false,
+        // isLoggedIn: false,
       };
+    case GET_CURRENT_USER:
+      return {
+        ...state,
+        loading: true,
+      };
+    case GET_CURRENT_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        // currentUser: action.payload,
+      };
+    case GET_CURRENT_USER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
     default:
       return { ...state };
   }

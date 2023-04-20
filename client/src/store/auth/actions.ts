@@ -6,9 +6,9 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
-  // GET_CURRENT_USER,
-  // GET_CURRENT_USER_SUCCESS,
-  // GET_CURRENT_USER_FAILURE,
+  GET_CURRENT_USER,
+  GET_CURRENT_USER_SUCCESS,
+  GET_CURRENT_USER_FAILURE,
 } from "./actionTypes";
 
 import {
@@ -21,6 +21,9 @@ import {
   LogoutRequest,
   LogoutSuccess,
   LogoutFailure,
+  GetCurrentuser,
+  GetCurrentuserSuccess,
+  GetCurrentuserFailure,
 } from "./types";
 
 export const loginRequest = (payload: LoginPayload): LoginRequest => ({
@@ -58,16 +61,16 @@ export const logoutFailure = (error: any): LogoutFailure => ({
   payload: { error },
 });
 
-// export const getCurrentUser = (payload: any) => ({
-//   type: GET_CURRENT_USER,
-//   payload,
-// });
+export const getCurrentUser = (): GetCurrentuser => ({
+  type: GET_CURRENT_USER,
+  payload: {},
+});
 
-// export const getCurrentUserSuccess = () => ({
-//   type: GET_CURRENT_USER_SUCCESS,
-// });
+export const getCurrentUserSuccess = (): GetCurrentuserSuccess => ({
+  type: GET_CURRENT_USER_SUCCESS,
+});
 
-// export const getCurrentUserFailure = (error: any) => ({
-//   type: GET_CURRENT_USER_FAILURE,
-//   payload: error,
-// });
+export const getCurrentUserFailure = (error: any): GetCurrentuserFailure => ({
+  type: GET_CURRENT_USER_FAILURE,
+  payload: error,
+});

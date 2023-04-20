@@ -18,23 +18,18 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { darkTheme, lightTheme } from "./components/theme/theme";
 import BlogsPage from "./features/blogs/BlogsPage";
 import { getBlogsRequest } from "./store/blog/actions";
-// import { getCurrentUser } from "./store/auth/actions";
-// import { GET_CURRENT_USER } from "./store/auth/actionTypes";
+import { getCurrentUser } from "./store/auth/actions";
 
 function App() {
   const dispatch = useAppDispatch();
   const [darkMode, setDarkMode] = useState(false);
 
-  const { isLoggedIn } = useAppSelector((state) => state.auth);
-
-  if (!isLoggedIn) {
-    console.log("Haaaaa");
-  }
-
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const token = localStorage.getItem("jwt-blogapp");
+  console.log("TOOK2", token);
   const initApp = useCallback(async () => {
     await dispatch(getBlogsRequest());
-    // dispatch(getCurrentUser());
-    // console.log("Current user jj: ", getCurrentUser);
+    dispatch(getCurrentUser());
   }, [dispatch]);
 
   useEffect(() => {
@@ -57,12 +52,18 @@ function App() {
           <Container sx={{ marginY: 5, marginTop: 0 }}>
             <Routes>
               <Route
-                path="/login"
-                element={isLoggedIn ? <Navigate to="/" /> : <LoginPage />}
+                path="/"
+                element={
+                  token ? <Navigate to="home" /> : <Navigate to="login" />
+                }
               />
               <Route
-                path="/"
-                element={isLoggedIn ? <BlogsPage /> : <Navigate to="/login" />}
+                path="/home"
+                element={token ? <BlogsPage /> : <Navigate to="../login" />}
+              />
+              <Route
+                path="/login"
+                element={token ? <Navigate to="/home" /> : <LoginPage />}
               />
               <Route path="/blog/:id" element={<SingleBlogPage />} />
               <Route element={<AuthGuard />}>
