@@ -1,4 +1,5 @@
 import { Blog } from "../../interfaces/Blog";
+
 import {
   GET_BLOGS_REQUEST,
   GET_BLOGS_SUCCESS,
@@ -15,6 +16,7 @@ import {
   DELETE_BLOG_REQUEST,
   DELETE_BLOG_SUCCESS,
   DELETE_BLOG_FAILURE,
+
 } from "./actionTypes";
 
 import {
@@ -40,6 +42,7 @@ import {
 } from "./types";
 
 /* Get blogs */
+
 
 export const getBlogsRequest = (): GetBlogsRequest => ({
   type: GET_BLOGS_REQUEST,
@@ -136,3 +139,4 @@ export const deleteBlogFailure = (error: any): DeleteBlogFailure => ({
   type: DELETE_BLOG_FAILURE,
   payload: error,
 });
+

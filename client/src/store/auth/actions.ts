@@ -9,6 +9,7 @@ import {
   GET_CURRENT_USER,
   GET_CURRENT_USER_SUCCESS,
   GET_CURRENT_USER_FAILURE,
+
 } from "./actionTypes";
 
 import {
@@ -18,6 +19,7 @@ import {
   LoginRequest,
   LoginSuccess,
   LoginFailure,
+
   LogoutRequest,
   LogoutSuccess,
   LogoutFailure,
@@ -74,3 +76,4 @@ export const getCurrentUserFailure = (error: any): GetCurrentuserFailure => ({
   type: GET_CURRENT_USER_FAILURE,
   payload: error,
 });
+

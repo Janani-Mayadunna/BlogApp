@@ -1,3 +1,4 @@
+
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -9,6 +10,7 @@ import {
   GET_CURRENT_USER_SUCCESS,
   GET_CURRENT_USER_FAILURE,
 } from "./actionTypes";
+
 
 export interface IAuth {
   token: string;
@@ -68,6 +70,7 @@ export type LogoutFailure = {
 
 //types login
 
+
 export type LoginRequest = {
   type: typeof LOGIN_REQUEST;
   payload: LoginPayload;
@@ -108,3 +111,4 @@ export type AuthAction =
   | GetCurrentuser
   | GetCurrentuserSuccess
   | GetCurrentuserFailure;
+

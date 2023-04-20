@@ -37,6 +37,7 @@ import axios from "axios";
 
 const fetchBlogs = async () => {
   const response = await fetch("http://localhost:8090/api/blogs");
+
   const data = await response.json();
   return data;
 };
@@ -151,6 +152,7 @@ function* blogsSaga() {
   yield takeLatest(CREATE_BLOG_REQUEST, createBlogSaga);
   yield takeLatest(UPDATE_BLOG_REQUEST, updateBlogSaga);
   yield takeLatest(DELETE_BLOG_REQUEST, deleteBlogSaga);
+
 }
 
 export default blogsSaga;
