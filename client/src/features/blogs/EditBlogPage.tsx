@@ -9,8 +9,13 @@ import Snackbar from "@mui/material/Snackbar";
 import { purple } from "@mui/material/colors";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { createBlog, deleteBlog, getBlogById, updateBlog } from "./blogSlice";
 import { useNavigate, useParams } from "react-router-dom";
+import {
+  deleteBlogRequest,
+  getBlogByIdRequest,
+  updateBlogRequest,
+} from "../../store/blog/actions";
+import { Blog } from "../../interfaces/Blog";
 
 export default function EditBlogPage() {
   const dispatch = useAppDispatch();
@@ -21,7 +26,7 @@ export default function EditBlogPage() {
 
   useEffect(() => {
     if (!id) return;
-    dispatch(getBlogById(id));
+    dispatch(getBlogByIdRequest(id));
   }, []);
 
   useEffect(() => {
@@ -43,19 +48,20 @@ export default function EditBlogPage() {
     e.preventDefault();
     handleClick();
 
-    let data = {
-      _id: id,
-      title: blog.title,
-      content: blog.content,
-      image: blog.image,
+    let data: Blog = {
+      title: blog.title ? blog.title : "",
+      content: blog.content ? blog.content : "",
+      image: blog.image ? blog.image : "",
     };
-    dispatch(updateBlog(data));
+
+    if (!id) return;
+    dispatch(updateBlogRequest(id, data));
     navigate("/");
   };
 
   const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
     if (!id) return;
-    dispatch(deleteBlog(id));
+    dispatch(deleteBlogRequest(id));
     navigate("/");
   };
 

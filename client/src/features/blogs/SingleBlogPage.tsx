@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { getBlogById } from "./blogSlice";
+import { getBlogByIdRequest } from "../../store/blog/actions";
 
 export default function SingleBlogPage() {
   const dispatch = useAppDispatch();
@@ -16,7 +16,7 @@ export default function SingleBlogPage() {
       alert("Null ID");
       return;
     }
-    dispatch(getBlogById(id));
+    dispatch(getBlogByIdRequest(id));
   }, []);
 
   return (
