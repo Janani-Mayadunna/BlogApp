@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField/TextField";
+import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import React, { MouseEvent, useState } from "react";
@@ -22,10 +22,10 @@ export default function CreateBlogPage() {
   const [blog, setBlog] = useState({
     title: "",
     content: "",
-    image: "",
+    image: ""
   });
 
-  const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = (e : MouseEvent) => {
     e.preventDefault();
 
     let data: Blog = {
