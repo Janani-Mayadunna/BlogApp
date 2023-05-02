@@ -31,7 +31,6 @@ import {
   UpdateBlogRequest,
   UpdateBlogRequestPayload,
 } from "./types";
-import axios from "axios";
 
 /* Get blogs */
 
@@ -82,11 +81,15 @@ export function* fetchSingleBlogSaga(action: {
 /* Create blog */
 
 const createBlog = async (payload: Object) => {
-  const response = await axios.post<Blog>(
-    "http://localhost:8090/api/blogs/blog",
-    payload
-  );
-  return response.data;
+  const response = await fetch("http://localhost:8090/api/blogs/blog",{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  return await response.json();
 };
 
 export function* createBlogSaga(action: CreateBlogRequest) {
@@ -102,11 +105,20 @@ export function* createBlogSaga(action: CreateBlogRequest) {
 /* Update blog */
 
 const updateBlog = async (id: string, data: UpdateBlogRequestPayload) => {
-  const response = await axios.put<Blog>(
-    `http://localhost:8090/api/blogs/blog/${id}`,
-    data
-  );
-  return response.data;
+  const token = JSON.parse(localStorage.getItem("jwt-blogapp")!);
+  const response = await fetch(`http://localhost:8090/api/blogs/blog/${id}`,{
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    body: JSON.stringify(data),
+  });
+  const responseData = await response.json();
+  if (!response.ok) {
+    throw new Error(responseData.message || "Failed to update blog.");
+  }
+  return responseData;
 };
 
 export function* updateBlogSaga(action: UpdateBlogRequest) {
@@ -131,11 +143,18 @@ export function* updateBlogSaga(action: UpdateBlogRequest) {
 }
 
 const deleteBlog = async (id: string) => {
-  const response = await axios.delete<Blog>(
-    `http://localhost:8090/api/blogs/blog/${id}`
-  );
-  return response.data;
+  const token = JSON.parse(localStorage.getItem("jwt-blogapp")!);
+  const response = await fetch(`http://localhost:8090/api/blogs/blog/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+  const data = await response.json();
+  return data;
 };
+
 
 function* deleteBlogSaga(action: DeleteBlogRequest) {
   try {
