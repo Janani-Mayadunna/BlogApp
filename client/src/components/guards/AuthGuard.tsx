@@ -8,4 +8,5 @@ export default function AuthGuard() {
   const token = localStorage.getItem("jwt-blogapp");
 
   return token ? <Outlet /> : <LoginPage />;
+
 }

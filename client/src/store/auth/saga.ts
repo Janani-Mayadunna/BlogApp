@@ -3,6 +3,7 @@ import { all, call, put, takeLatest } from "redux-saga/effects";
 import {
   getCurrentUserFailure,
   getCurrentUserSuccess,
+
   // getCurrentUserFailure,
   // getCurrentUserSuccess,
   loginFailure,
@@ -18,6 +19,7 @@ import { useAppDispatch } from "../store";
 
 const login = async (payload: { email: string; password: string }) => {
   try {
+
     const response = await fetch("http://localhost:8090/api/auth/login",
     {
       method: "POST",
@@ -30,9 +32,12 @@ const login = async (payload: { email: string; password: string }) => {
       }),
     });
     const { token } = await response.json();
+
     localStorage.setItem("jwt-blogapp", JSON.stringify(token));
+
     localStorage.setItem("isLoggedIn", JSON.stringify(true));
     window.location.reload();
+
     console.log("Successfully Logged In!");
     console.log(token);
 
@@ -50,10 +55,12 @@ function* loginSaga(action: any) {
     });
 
     yield put(loginSuccess({ token: response.token }));
+
   } catch (e: any) {
     yield put(loginFailure({ error: e.message }));
   }
 }
+
 
 function* logoutSaga() {
   try {
@@ -98,6 +105,7 @@ function* authSaga() {
   yield takeLatest(LOGOUT_REQUEST, logoutSaga);
 
   // yield takeLatest(GET_CURRENT_USER, getCurrentUserSaga);
+
 }
 
 export default authSaga;

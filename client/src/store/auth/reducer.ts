@@ -7,6 +7,7 @@ import {
   GET_CURRENT_USER_FAILURE,
 } from "./actionTypes";
 
+
 import { AuthAction, AuthState } from "./types";
 
 const initialState: AuthState = {
@@ -30,6 +31,7 @@ const reducers = (state = initialState, action: AuthAction) => {
         token: action.payload.token,
         error: null,
         // isLoggedIn: true,
+
       };
     case LOGIN_FAILURE:
       return {
@@ -56,7 +58,6 @@ const reducers = (state = initialState, action: AuthAction) => {
         loading: false,
         error: action.payload,
       };
-
     default:
       return { ...state };
   }

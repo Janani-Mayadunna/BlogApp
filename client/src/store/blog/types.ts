@@ -36,6 +36,7 @@ export interface GetBlogsFailurePayload {
 
 /* Get Blogs */
 
+
 export type GetBlogsRequest = {
   type: typeof GET_BLOGS_REQUEST;
   payload: {};
@@ -144,3 +145,4 @@ export type BlogAction =
   | DeleteBlogRequest
   | DeleteBlogSuccess
   | DeleteBlogFailure;
+

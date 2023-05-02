@@ -44,6 +44,7 @@ export default function LoginPage() {
     const token = localStorage.getItem("jwt-blogapp");
     console.log("TOOK3", token);
     console.log(data);
+
   }
 
   return (
